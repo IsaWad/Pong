@@ -90,6 +90,7 @@ function moveBall() {
     ball.style.left = mapWidth - ball.clientWidth + "px";
     dx = -dx;
   }
+  //Hej
 }
 
 setInterval(moveBall, 50);
