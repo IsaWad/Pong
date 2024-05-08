@@ -18,7 +18,7 @@ function handleKeyDown(event) {
   if (key.toLowerCase() === "w") {
     const currentTop = parseInt(paddle_1Style.top);
     const newTop = Math.max(
-      0 + paddle_1Height / 2,
+      0 + paddle_1Height / 1000,
       currentTop - mapHeight * 0.06
     );
     paddle_1.style.top = newTop + "px";
@@ -27,7 +27,7 @@ function handleKeyDown(event) {
   if (key.toLowerCase() === "s") {
     const currentTop = parseInt(paddle_1Style.top);
     const newTop = Math.min(
-      mapHeight - paddle_1Height / 2,
+      mapHeight - paddle_1Height,
       currentTop + mapHeight * 0.06
     );
     paddle_1.style.top = newTop + "px";
@@ -36,7 +36,7 @@ function handleKeyDown(event) {
   if (key === "ArrowUp") {
     const currentTop = parseInt(paddle_2Style.top);
     const newTop = Math.max(
-      0 + paddle_1Height / 2,
+      0 + paddle_1Height / 1000,
       currentTop - mapHeight * 0.06
     );
     paddle_2.style.top = newTop + "px";
@@ -45,7 +45,7 @@ function handleKeyDown(event) {
   if (key === "ArrowDown") {
     const currentTop = parseInt(paddle_2Style.top);
     const newTop = Math.min(
-      mapHeight - paddle_1Height / 2,
+      mapHeight - paddle_1Height,
       currentTop + mapHeight * 0.06
     );
     paddle_2.style.top = newTop + "px";
