@@ -9,7 +9,7 @@ let paddle_1 = document.createElement("div");
 paddle_1.classList.add("paddle", "paddle_1");
 paddle_1.style.position = "absolute";
 paddle_1.style.top = "50%";
-paddle_1.style.left = "10px";
+paddle_1.style.left = "100px";
 map.appendChild(paddle_1);
 
 // Create paddle 2
@@ -17,7 +17,7 @@ let paddle_2 = document.createElement("div");
 paddle_2.classList.add("paddle", "paddle_2");
 paddle_2.style.position = "absolute";
 paddle_2.style.top = "50%";
-paddle_2.style.left = mapWidth - 20 + "px";
+paddle_2.style.left = mapWidth - 100 + "px";
 map.appendChild(paddle_2);
 
 function handleKeyDown(event) {
@@ -81,6 +81,7 @@ let dy = Math.sin(randomAngle) * randomSpeed;
 function moveBall() {
   let ballTop = parseInt(ball.style.top);
   let ballLeft = parseInt(ball.style.left);
+  let ballRight = parseInt(ball.style.right);
 
   const paddle_1Height = paddle_1.clientHeight;
   const paddle_1Width = paddle_1.clientWidth;
@@ -94,11 +95,9 @@ function moveBall() {
   const paddle_2Bottom = paddle_2Top + paddle_2Height;
   const paddle_2Left = parseInt(paddle_2.style.left);
 
-  // Update ball position
   ball.style.top = ballTop + dy + "px";
   ball.style.left = ballLeft + dx + "px";
 
-  // Check collision with top and bottom walls
   if (ballTop < 0) {
     ball.style.top = "0px";
     dy = -dy;
@@ -107,34 +106,29 @@ function moveBall() {
     dy = -dy;
   }
 
-  // Check collision with left paddle
-  if (
-    ballLeft <= paddle_1Right &&
-    ballLeft >= parseInt(paddle_1.style.left) &&
-    ballTop + ball.clientHeight >= paddle_1Top &&
-    ballTop <= paddle_1Bottom
-  ) {
-    ball.style.left = paddle_1Right + "px";
-    dx = -dx;
-  }
-
-  // Check collision with right paddle
-  if (
-    ballLeft + ball.clientWidth >= paddle_2Left &&
-    ballLeft <= paddle_2Left + paddle_2Width &&
-    ballTop + ball.clientHeight >= paddle_2Top &&
-    ballTop <= paddle_2Bottom
-  ) {
-    ball.style.left = paddle_2Left - ball.clientWidth + "px";
-    dx = -dx;
-  }
-
-  // Check collision with left and right walls
   if (ballLeft < 0) {
     ball.style.left = "0px";
     dx = -dx;
   } else if (ballLeft > mapWidth - ball.clientWidth) {
     ball.style.left = mapWidth - ball.clientWidth + "px";
+    dx = -dx;
+  }
+
+  if (
+    ballLeft <= paddle_1Right &&
+    ballTop > paddle_1Top &&
+    ballTop + ball.clientHeight < paddle_1Bottom
+  ) {
+    ball.style.left = paddle_1Right + 1 + "px";
+    dx = -dx;
+  }
+
+  if (
+    ballLeft >= paddle_2Left &&
+    ballTop > paddle_2Top &&
+    ballTop + ball.clientHeight < paddle_2Bottom
+  ) {
+    ball.style.left = paddle_2Left - 1 + "px";
     dx = -dx;
   }
 }
