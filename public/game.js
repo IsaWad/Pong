@@ -63,7 +63,8 @@ function handleKeyDown(event) {
 }
 
 document.addEventListener("keydown", handleKeyDown);
-
+let score1 = document.getElementById("score_1");
+let score2 = document.getElementById("score_2");
 const ball = document.querySelector(".ball");
 ball.style.position = "absolute";
 
@@ -81,7 +82,6 @@ let dy = Math.sin(randomAngle) * randomSpeed;
 function moveBall() {
   let ballTop = parseInt(ball.style.top);
   let ballLeft = parseInt(ball.style.left);
-  let ballRight = parseInt(ball.style.right);
 
   const paddle_1Height = paddle_1.clientHeight;
   const paddle_1Width = paddle_1.clientWidth;
@@ -109,9 +109,11 @@ function moveBall() {
   if (ballLeft < 0) {
     ball.style.left = "0px";
     dx = -dx;
+    score1.innerText += 1;
   } else if (ballLeft > mapWidth - ball.clientWidth) {
     ball.style.left = mapWidth - ball.clientWidth + "px";
     dx = -dx;
+    score2.innerText += 1;
   }
 
   if (
@@ -124,11 +126,11 @@ function moveBall() {
   }
 
   if (
-    ballLeft >= paddle_2Left &&
+    ballLeft + ball.clientHeight >= paddle_2Left &&
     ballTop > paddle_2Top &&
     ballTop + ball.clientHeight < paddle_2Bottom
   ) {
-    ball.style.left = paddle_2Left - 1 + "px";
+    ball.style.left = paddle_2Left - ball.clientWidth - 1 + "px";
     dx = -dx;
   }
 }
