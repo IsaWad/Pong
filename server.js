@@ -33,4 +33,14 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("A user has disconnected.");
   });
+
+// Emit initial ball position and score to clients
+io.emit("init", { ball: { top: initialTop, left: initialLeft }, score: { player1: score_player_1, player2: score_player_2 } });
+
+// Listen for paddle movement from clients
+socket.on("movePaddle", (data) => {
+  // Emit paddle movement to all clients
+  io.emit("updatePaddle", data);
+});
+
 });

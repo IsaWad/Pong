@@ -20,6 +20,11 @@ paddle_2.style.top = "50%";
 paddle_2.style.left = mapWidth - 100 + "px";
 map.appendChild(paddle_2);
 
+
+// Score for palyer
+let score_player_1 = 0
+let score_player_2 = 0
+
 function handleKeyDown(event) {
   const key = event.key;
 
@@ -30,6 +35,7 @@ function handleKeyDown(event) {
   const paddle_2 = document.querySelector(".paddle_2");
   const paddle_2Style = getComputedStyle(paddle_2);
   const paddle_2Height = paddle_2.clientHeight;
+
 
   if (key.toLowerCase() === "w") {
     const currentTop = parseInt(paddle_1Style.top);
@@ -109,11 +115,13 @@ function moveBall() {
   if (ballLeft < 0) {
     ball.style.left = "0px";
     dx = -dx;
-    score1.innerText += 1;
+    score_player_1 += 1
+    score1.innerText = score_player_1;
   } else if (ballLeft > mapWidth - ball.clientWidth) {
     ball.style.left = mapWidth - ball.clientWidth + "px";
     dx = -dx;
-    score2.innerText += 1;
+    score_player_2 += 1
+    score2.innerText = score_player_2;
   }
 
   if (
@@ -135,4 +143,4 @@ function moveBall() {
   }
 }
 
-setInterval(moveBall, 15);
+setInterval(moveBall, 10);
